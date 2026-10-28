@@ -3,12 +3,32 @@
   "upload_type": "software",
   "description": "<p>Code, data and results for the study of a multi-agent ensemble (MAE) of classical machine learning models for early identification of students at risk of academic failure (UCI Student Performance dataset). Expert agents analyse semantic feature groups and select their own classical model; a coordinator weights them by competence; a calibrator selects the decision threshold by Youden's index; an interpreter decomposes the risk score into agent contributions. Evaluation: 5x5 repeated cross-validation, corrected resampled t-test with Holm correction, control models with identical threshold calibration.</p><p>Код, данные и результаты исследования мультиагентного ансамбля классических моделей машинного обучения для раннего выявления обучающихся группы академического риска.</p>",
   "creators": [
-    {"name": "Sakhibullin, Mintimer M.", "affiliation": "Kazan State Institute of Culture"},
-    {"name": "Gilmeeva, Rimma Kh.", "affiliation": "Institute of Pedagogy, Psychology and Social Problems"}
+    {
+      "name": "Sakhibullin, Mintimer M.",
+      "affiliation": "Kazan State Institute of Culture",
+      "orcid": "0009-0004-8425-5445"
+    },
+    {
+      "name": "Gilmeeva, Rimma Kh.",
+      "affiliation": "Institute of Pedagogy, Psychology and Social Problems"
+    }
   ],
   "license": "MIT",
-  "keywords": ["learning analytics", "at-risk students", "ensemble learning", "multi-agent systems", "interpretability", "educational data mining", "machine learning"],
+  "keywords": [
+    "learning analytics",
+    "at-risk students",
+    "ensemble learning",
+    "multi-agent systems",
+    "interpretability",
+    "educational data mining",
+    "machine learning"
+  ],
   "related_identifiers": [
-    {"identifier": "10.24432/C5TG7T", "relation": "isDerivedFrom", "scheme": "doi", "resource_type": "dataset"}
+    {
+      "identifier": "10.24432/C5TG7T",
+      "relation": "isDerivedFrom",
+      "scheme": "doi",
+      "resource_type": "dataset"
+    }
   ]
 }
