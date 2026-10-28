@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+data/inner.zip
+results/run.log
+~$*.docx
+
+# Текст статьи и служебные документы не публикуются до выхода статьи:
+# «Антиплагиат» индексирует GitHub и засчитает собственный текст как заимствование.
+article/
+docs/
+src/article_text.py
+src/build_article.py
+src/bibliography.py
+src/gost_docx.py
+src/check_claims.py

@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "Если вы используете этот код, пожалуйста, сошлитесь на него. / If you use this software, please cite it."
+title: "Multi-agent ensemble of classical machine learning models for early identification of students at academic risk"
+version: 1.0.0
+date-released: 2026-10-28
+license: MIT
+repository-code: "https://github.com/Msakhibullin24/A-multi-agent-ensemble-of-classical-machine-learning-models-"
+type: software
+authors:
+  - family-names: Sakhibullin
+    given-names: Mintimer M.
+    affiliation: Kazan State Institute of Culture
+    email: msakhibullin24@gmail.com
+  - family-names: Gilmeeva
+    given-names: Rimma Kh.
+    affiliation: Institute of Pedagogy, Psychology and Social Problems
+    email: rimma.prof@mail.ru
+keywords:
+  - learning analytics
+  - at-risk students
+  - ensemble learning
+  - multi-agent systems
+  - interpretability
+  - educational data mining
