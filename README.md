@@ -2,6 +2,7 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Msakhibullin24/A-multi-agent-ensemble-of-classical-machine-learning-models-/blob/main/notebooks/MAE_walkthrough.ipynb)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23729260.svg)](https://doi.org/10.5281/zenodo.23729260)
 
 **Авторы / Authors:**
 - Минтимер Мансурович Сахибуллин (Mintimer M. Sakhibullin) — Казанский государственный институт культуры
@@ -90,7 +91,9 @@ Cortez P., Silva A. Using Data Mining to Predict Secondary School Student Perfor
 
 ## Цитирование / Citation
 
-См. `CITATION.cff` (кнопка «Cite this repository» справа на странице GitHub). See `CITATION.cff`.
+Sakhibullin M.M., Gilmeeva R.Kh. Multi-agent ensemble of classical machine learning models for early identification of students at academic risk (v1.0.0). Zenodo, 2026. https://doi.org/10.5281/zenodo.23729260
+
+См. также `CITATION.cff` (кнопка «Cite this repository» справа на странице GitHub). See also `CITATION.cff`.
 
 ## Лицензия / License
 

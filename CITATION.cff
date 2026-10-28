@@ -2,6 +2,7 @@ cff-version: 1.2.0
 message: "Если вы используете этот код, пожалуйста, сошлитесь на него. / If you use this software, please cite it."
 title: "Multi-agent ensemble of classical machine learning models for early identification of students at academic risk"
 version: 1.0.0
+doi: 10.5281/zenodo.23729260
 date-released: 2026-10-28
 license: MIT
 repository-code: "https://github.com/Msakhibullin24/A-multi-agent-ensemble-of-classical-machine-learning-models-"
