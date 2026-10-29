@@ -15,3 +15,6 @@ src/build_article.py
 src/bibliography.py
 src/gost_docx.py
 src/check_claims.py
+
+# Следующие статьи — в работе, не публикуются
+papers/

@@ -22,7 +22,8 @@ from sklearn.ensemble import (AdaBoostClassifier, GradientBoostingClassifier,
                               RandomForestClassifier)
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import balanced_accuracy_score, roc_auc_score
-from sklearn.model_selection import StratifiedKFold, cross_val_predict
+from sklearn.model_selection import (StratifiedGroupKFold, StratifiedKFold,
+                                     cross_val_predict)
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier, NearestNeighbors
 from sklearn.pipeline import make_pipeline
@@ -76,14 +77,14 @@ class ExpertAgent:
     oof_proba: np.ndarray = field(default=None, repr=False)
     auc: float = 0.0
 
-    def fit(self, X, y):
-        cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=self.seed)
+    def fit(self, X, y, groups=None):
+        cv = make_cv(self.seed, groups)
         models = base_models(self.seed)
         best = None
         for name in self.candidates:
             pipe = make_pipeline(make_preprocessor(self.features, self.categorical),
                                  clone(models[name]))
-            proba = cross_val_predict(pipe, X[self.features], y, cv=cv,
+            proba = cross_val_predict(pipe, X[self.features], y, cv=cv, groups=groups,
                                       method="predict_proba")[:, 1]
             auc = roc_auc_score(y, proba)
             if best is None or auc > best[1]:
@@ -94,6 +95,14 @@ class ExpertAgent:
 
     def predict_proba(self, X):
         return self.model_.predict_proba(X[self.features])[:, 1]
+
+
+def make_cv(seed, groups=None):
+    """5-блочная CV; при заданных группах (студент, театр) объекты одной группы
+    не попадают одновременно в обучающую и проверочную части."""
+    if groups is None:
+        return StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
+    return StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=seed)
 
 
 def youden_threshold(risk, y):
@@ -114,9 +123,9 @@ class YoudenThreshold(BaseEstimator, ClassifierMixin):
         self.estimator = estimator
         self.seed = seed
 
-    def fit(self, X, y):
-        cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=self.seed)
-        oof = cross_val_predict(clone(self.estimator), X, y, cv=cv,
+    def fit(self, X, y, groups=None):
+        cv = make_cv(self.seed, groups)
+        oof = cross_val_predict(clone(self.estimator), X, y, cv=cv, groups=groups,
                                 method="predict_proba")[:, 1]
         self.threshold_ = youden_threshold(oof, np.asarray(y))
         self.model_ = clone(self.estimator).fit(X, y)
@@ -137,17 +146,20 @@ class MultiAgentEnsemble(BaseEstimator, ClassifierMixin):
     фиксирует порог 0.5 (используется в абляционном анализе).
     """
 
-    def __init__(self, groups, categorical, local_k=25, tune_threshold=True, seed=0):
+    def __init__(self, groups, categorical, local_k=25, tune_threshold=True, seed=0,
+                 candidates=AGENT_CANDIDATES):
         self.groups = groups
         self.categorical = categorical
+        self.candidates = candidates
         self.local_k = local_k
         self.tune_threshold = tune_threshold
         self.seed = seed
 
-    def fit(self, X, y):
+    def fit(self, X, y, groups=None):
         y = np.asarray(y)
         self.classes_ = np.array([0, 1])
-        self.agents_ = [ExpertAgent(name, cols, self.categorical, self.seed).fit(X, y)
+        self.agents_ = [ExpertAgent(name, cols, self.categorical, self.seed,
+                                    candidates=tuple(self.candidates)).fit(X, y, groups)
                         for name, cols in self.groups.items()]
         self.global_w_ = np.array([max(a.auc - 0.5, 1e-3) for a in self.agents_])
         self.oof_ = np.column_stack([a.oof_proba for a in self.agents_])
